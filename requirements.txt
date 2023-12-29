@@ -3,3 +3,4 @@ pandas
 openai
 tabulate
 langchain
+langchain_experimental
