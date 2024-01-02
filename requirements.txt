@@ -4,3 +4,4 @@ openai
 tabulate
 langchain
 langchain_experimental
+datetime
