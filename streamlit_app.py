@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from langchain.chat_models import ChatOpenAI
+from langchain.agents import create_pandas_dataframe_agent
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 from langchain.agents.agent_types import AgentType
 
@@ -12,7 +13,11 @@ prefix = ("You are an expert on sleep quality analysis. The csv data contains tw
           "'Time [hh:mm:ss]'. The data has epoch length of 30 seconds.")
 # Load CSV file
 def load_csv(input_csv):
-  df = pd.read_csv(input_csv)
+  if input_csv[-3:] == 'txt':
+    df = pd.read_csv(input_csv, skiprows=17, delimiter='\t', encoding='utf-8-sig')
+    df = df[['Sleep Stage', 'Time [hh:mm:ss]']]
+  else:
+    df = pd.read_csv(input_csv)
   with st.expander('See DataFrame'):
     st.write(df)
   return df
@@ -30,8 +35,8 @@ def generate_response(csv_file, input_query):
 # Input widgets
 uploaded_file = st.file_uploader('Upload a CSV file', type=['csv'])
 question_list = [
-  'How many rows are there?',
-  'What is the total duration of sleep?',
+  "How well did I sleep based on the distribution of sleep stages?",
+  "What's the total duration of sleep?",
   'Breakdown of the sleep stages.',
   'Other']
 query_text = st.selectbox('Select an example query:', question_list, disabled=not uploaded_file)
