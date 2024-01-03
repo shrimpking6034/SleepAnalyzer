@@ -33,7 +33,7 @@ def generate_response(csv_file, input_query):
 # Input widgets
 uploaded_file = st.file_uploader('Upload Sleep Data', type=['csv', 'txt'])
 question_list = [
-  "How well did I sleep based on the distribution of sleep stages?",
+  "How well did I sleep according to the distribution of Sleep Stage?",
   "What's the total duration of sleep?",
   'Breakdown of the sleep stages.',
   'Other']
