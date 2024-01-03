@@ -12,12 +12,10 @@ prefix = ("You are an expert on sleep quality analysis. The csv data contains tw
           "'Time [hh:mm:ss]'. The data has epoch length of 30 seconds.")
 # Load CSV file
 def load_csv(input_csv):
-  print(input_csv.name, input_csv.type)
-  if input_csv.type == 'txt':
-    df = pd.read_csv(input_csv, skiprows=17, delimiter='\t', encoding='EUC-KR')
-    df = df[['Sleep Stage', 'Time [hh:mm:ss]']]
-  else:
-    df = pd.read_csv(input_csv, encoding='EUC-KR')
+  # print(input_csv.name, input_csv.type)
+  df = pd.read_csv(input_csv, skiprows=17, delimiter='\t', encoding='EUC-KR')
+  df = df[['Sleep Stage', 'Time [hh:mm:ss]']]
+  # df = pd.read_csv(input_csv, encoding='EUC-KR')
   with st.expander('See DataFrame'):
     st.write(df)
   return df
