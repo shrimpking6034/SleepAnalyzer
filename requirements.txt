@@ -2,6 +2,6 @@ streamlit>=1.26.0
 pandas
 openai
 tabulate
-langchain
+langchain==0.0.349
 langchain_experimental
 datetime
