@@ -23,7 +23,10 @@ def load_csv(input_csv):
 # Generate LLM response
 def generate_response(csv_file, input_query):
   llm = ChatOpenAI(model_name='gpt-4-0613', temperature=0, openai_api_key=openai_api_key)
-  df = load_csv(csv_file)
+  tmp = []
+  for f in sorted(csv_file):
+    tmp += load_csv(f)
+  df = pd.concat(tmp)
   # Create Pandas DataFrame Agent
   agent = create_pandas_dataframe_agent(llm, df, verbose=True, agent_type=AgentType.OPENAI_FUNCTIONS, prefix=prefix)
   # Perform Query using the Agent
@@ -31,7 +34,7 @@ def generate_response(csv_file, input_query):
   return st.success(response)
 
 # Input widgets
-uploaded_file = st.file_uploader('Upload Sleep Data', type=['csv', 'txt'])
+uploaded_file = st.file_uploader('Upload Sleep Data', type=['csv', 'txt'], accept_multiple_files=True)
 question_list = [
   "How well did I sleep according to the distribution of Sleep Stage?",
   "What's the total duration of sleep?",
