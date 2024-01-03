@@ -5,14 +5,14 @@ from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe
 from langchain.agents.agent_types import AgentType
 
 # Page title
-st.set_page_config(page_title='🦜🔗 Ask the Data App')
-st.title('🦜🔗 Ask the Data App')
+st.set_page_config(page_title='🦜🔗 Sleep Analyzer')
+st.title('🦜🔗 Sleep Analyzer')
 
 prefix = ("You are an expert on sleep quality analysis. The csv data contains two rows: 'Sleep Stage' and "
           "'Time [hh:mm:ss]'. The data has epoch length of 30 seconds.")
 # Load CSV file
 def load_csv(input_csv):
-  if input_csv[-3:] == 'txt':
+  if input_csv.type == 'txt':
     df = pd.read_csv(input_csv, skiprows=17, delimiter='\t', encoding='utf-8-sig')
     df = df[['Sleep Stage', 'Time [hh:mm:ss]']]
   else:
@@ -32,7 +32,7 @@ def generate_response(csv_file, input_query):
   return st.success(response)
 
 # Input widgets
-uploaded_file = st.file_uploader('Upload a CSV file', type=['csv'])
+uploaded_file = st.file_uploader('Upload Sleep Data', type=['csv', 'txt'])
 question_list = [
   "How well did I sleep based on the distribution of sleep stages?",
   "What's the total duration of sleep?",
