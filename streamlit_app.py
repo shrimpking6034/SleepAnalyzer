@@ -24,8 +24,8 @@ def load_csv(input_csv):
 def generate_response(csv_file, input_query):
   llm = ChatOpenAI(model_name='gpt-4-0613', temperature=0, openai_api_key=openai_api_key)
   tmp = []
-  for f in sorted(csv_file):
-    tmp += load_csv(f)
+  for f in csv_file:
+    tmp += [load_csv(f)]
   df = pd.concat(tmp)
   # Create Pandas DataFrame Agent
   agent = create_pandas_dataframe_agent(llm, df, verbose=True, agent_type=AgentType.OPENAI_FUNCTIONS, prefix=prefix)
