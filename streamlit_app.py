@@ -13,7 +13,7 @@ prefix = ("You are an expert on sleep quality analysis. The csv data contains tw
 # Load CSV file
 def load_csv(input_csv):
   if input_csv.type == 'txt':
-    df = pd.read_csv(input_csv, skiprows=17, delimiter='\t', encoding='utf-8-sig')
+    df = pd.read_csv(input_csv, skiprows=17, delimiter='\t', encoding='EUC-KR')
     df = df[['Sleep Stage', 'Time [hh:mm:ss]']]
   else:
     df = pd.read_csv(input_csv)
